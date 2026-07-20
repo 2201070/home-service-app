@@ -1,0 +1,141 @@
+Project Overview
+
+"HomeServe" is a Flutter mobile app for a Home Services Platform (cleaning, maintenance,
+repairs, moving, security systems, daily services, outdoor services). The app covers three
+connected screens — Home, Service Listing, and Service Details — built entirely with
+dummy data (no backend/API). This is an internship deliverable at Eduzah, so code quality,
+clean architecture, and visual polish matter as much as functionality.
+
+Architecture
+
+Feature-based Clean Architecture, kept lightweight since there is no backend or business
+logic beyond navigation and UI state:
+
+lib/
+├── main.dart
+├── app/
+│   ├── app.dart                 # MaterialApp, theme, routing setup
+│   ├── theme/
+│   │   ├── app_colors.dart
+│   │   ├── app_typography.dart
+│   │   ├── app_spacing.dart     # 8px grid constants
+│   │   └── app_theme.dart       # ThemeData (light + dark)
+│   └── routes/
+│       ├── app_routes.dart      # route name constants
+│       └── page_transitions.dart # custom PageRouteBuilder helpers
+├── core/
+│   ├── widgets/                 # shared reusable widgets (buttons, cards, rating stars, section headers)
+│   └── utils/                   # extensions, responsive helpers
+├── features/
+│   ├── home/
+│   │   ├── presentation/
+│   │   │   ├── screens/home_screen.dart
+│   │   │   └── widgets/          # hero_section, services_row, testimonial_card...
+│   │   └── data/                 # dummy category + testimonial data
+│   ├── service_listing/
+│   │   ├── presentation/
+│   │   │   ├── screens/service_listing_screen.dart
+│   │   │   ├── cubit/service_listing_cubit.dart   # search/filter UI state
+│   │   │   └── widgets/
+│   │   └── data/                 # dummy service data per category
+│   └── service_details/
+│       ├── presentation/
+│       │   ├── screens/service_details_screen.dart
+│       │   └── widgets/
+│       └── data/
+└── models/
+    ├── category_model.dart
+    ├── service_model.dart
+    └── review_model.dart
+
+Each feature only has presentation/ + data/ (no domain layer, no repositories) —
+there is no real data source to abstract, so an extra domain layer would be pure
+boilerplate for this project. Keep it this simple unless a real backend is added later.
+
+Tech Stack
+
+
+Flutter (stable channel, latest version available at project start)
+State management: Cubit (flutter_bloc package) — one Cubit per feature that
+needs shared UI state (e.g. ServiceListingCubit for search/filter state,
+ThemeCubit for light/dark mode). Keep Cubits thin: they hold and emit UI state
+only, no business logic beyond what this dummy-data app needs.
+google_fonts — Poppins (headings) / Inter (body)
+cached_network_image — for all dummy network images (categories, services, avatars)
+Navigation: named routes via Navigator + custom PageRouteBuilder helpers in
+page_transitions.dart (no need for go_router — flow is linear: Home → Listing → Details)
+
+
+Design System (must match exactly — no improvising new colors/values)
+
+
+Colors: primary navy #0F2A4A, accent orange #F5843A, background white/off-white
+#FAFAFA, secondary text gray #7A828A. Dark theme: background #121417, surface
+#1E2124, text #F2F2F2, secondary text #9AA0A6, same orange accent in both themes.
+Spacing: strict 8px grid (8, 16, 24, 32, 40) — no arbitrary padding/margin values.
+Corner radius: 20-24px large cards (hero, gallery), 16px medium cards (service,
+testimonial), 12px buttons, 8px chips/tags.
+Shadows: soft, low-opacity, multi-layer — never harsh default BoxShadow with high
+opacity/no blur.
+Typography scale: H1 28/32, H2 22/26, H3 18/24, Body 14/20, Caption 12/16.
+
+
+Conventions
+
+
+Naming: PascalCase for widgets/classes, camelCase for variables/functions,
+files in snake_case.dart.
+One widget per file for anything reused more than once; inline private widgets
+(prefixed _) only for single-use screen sections.
+All dummy data lives in data/ files as static lists of typed models — never
+hardcode strings/prices directly inside widget build methods.
+Every screen must be wrapped to be responsive (use MediaQuery/LayoutBuilder
+and relative sizing) — test against small phones and tablets mentally before
+considering a screen done.
+
+
+Do
+
+
+Follow the folder structure and design system values above exactly.
+Build every repeated UI element (service card, category card, testimonial card,
+rating stars, CTA button, section header with "See All") as a reusable widget in
+core/widgets/ or the owning feature's widgets/ folder.
+Use the Hero widget with a shared tag (e.g. service-image-${service.id}) on the
+service image in both the Listing card and the Details header, so the transition
+between them animates smoothly.
+Implement page transitions via a custom PageRouteBuilder (fade + slight slide-up,
+~250ms, Curves.easeOutCubic) used consistently for all navigation — not the
+Flutter default slide transition.
+Implement dark mode via a ThemeCubit emitting ThemeMode + two ColorSchemes
+(light/dark) as defined above, toggle placed in the Profile tab or app bar.
+Use BlocBuilder/BlocSelector to rebuild only the widgets that depend on a given
+Cubit's state — never wrap an entire screen in a BlocBuilder if only one small
+widget needs it.
+Use const constructors wherever possible.
+Keep every text block on Service Details short and scannable (e.g. description
+capped at 2-3 lines with a "Read more" expansion) — do not let any single section
+push the screen height unreasonably.
+Add a short doc comment at the top of each new file explaining its purpose.
+
+
+Don't
+
+
+Don't add new packages without checking they're justified by this file's tech stack.
+Don't use setState for anything beyond a single private widget's own trivial local
+UI state (e.g. an expand/collapse toggle) — use a Cubit for anything shared
+across widgets or that represents meaningful screen state.
+Don't put business/UI logic directly in widgets — emit it from a Cubit and consume
+it via BlocBuilder/BlocConsumer so widgets stay declarative and testable.
+Don't hardcode colors, spacing, or font sizes inline — always reference
+app_colors.dart / app_spacing.dart / app_typography.dart.
+Don't create a vertical list for the Services section on Home — it must stay
+horizontally scrollable per the approved design.
+Don't introduce a dark navy (or any) solid-color card background on the Home hero
+section — it must stay light/white, matching the rest of the app's cards.
+Don't wire up the "Book Now" button to any action — it's UI-only per the task spec.
+Don't add backend calls, HTTP clients, or persistence — dummy data only.
+Don't use print() for debugging — use debugPrint() or remove before committing.
+Don't leave any screen non-responsive — no fixed pixel widths that break on
+smaller/larger devices.
