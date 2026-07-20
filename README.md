@@ -25,17 +25,17 @@ Project Structure
 lib/
 ├── main.dart
 ├── app/
-│   ├── app.dart                # MaterialApp, theme, routing setup
-│   ├── theme/                  # colors, typography, spacing, light/dark ThemeData, ThemeCubit
-│   └── routes/                 # route names + custom page transitions
+│   ├── app.dart               
+│   ├── theme/                
+│   └── routes/              
 ├── core/
-│   ├── widgets/                # shared reusable widgets (buttons, cards, rating stars)
-│   └── utils/                  # extensions, responsive helpers
+│   ├── widgets/              
+│   └── utils/                
 ├── features/
-│   ├── home/                   # Home Screen (hero, services, testimonials, bottom nav)
-│   ├── service_listing/        # Service Listing screen per category
-│   └── service_details/        # Service Details screen
-└── models/                     # Category, Service, Review models
+│   ├── home/                  
+│   ├── service_listing/       
+│   └── service_details/       
+└── models/                 
 
 Features
 
