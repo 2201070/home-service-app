@@ -7,6 +7,7 @@ import 'routes/page_transitions.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/service_listing/presentation/screens/service_listing_screen.dart';
 import '../features/service_details/presentation/screens/service_details_screen.dart';
+import '../features/booking/presentation/screens/booking_screen.dart';
 import '../models/service_model.dart';
 
 /// The top-level MaterialApp widget that initializes state, theme, and routing configurations.
@@ -42,6 +43,12 @@ class HomeServeApp extends StatelessWidget {
                   final service = settings.arguments as ServiceModel;
                   return PageTransitions.slideUpFade(
                     ServiceDetailsScreen(service: service),
+                    settings,
+                  );
+                case AppRoutes.booking:
+                  final service = settings.arguments as ServiceModel;
+                  return PageTransitions.slideUpFade(
+                    BookingScreen(service: service),
                     settings,
                   );
                 default:

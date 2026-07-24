@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:home_services/app/theme/app_colors.dart';
 import 'package:home_services/app/theme/app_spacing.dart';
 import 'package:home_services/models/service_model.dart';
+import 'package:home_services/app/routes/app_routes.dart';
 import 'package:home_services/features/service_details/presentation/cubit/service_details_cubit.dart';
 import 'package:home_services/features/service_details/presentation/widgets/service_image_header.dart';
 import 'package:home_services/features/service_details/presentation/widgets/service_info_card.dart';
@@ -116,7 +117,14 @@ class _ServiceDetailsBody extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            child: BottomCtaBar(price: service.price),
+            child: BottomCtaBar(
+              price: service.price,
+              onPressed: () => Navigator.pushNamed(
+                context,
+                AppRoutes.booking,
+                arguments: service,
+              ),
+            ),
           ),
         ],
       ),
