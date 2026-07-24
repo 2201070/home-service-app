@@ -1,16 +1,74 @@
-# home_services
+HomeServe — Home Services Platform Mobile App
 
-A new Flutter project.
+A Flutter mobile application for a Home Services Platform, allowing users to browse
+service categories, view available services, and check service details. Built as
+part of the Eduzah Flutter Internship (Task 1 + Task 2).
 
-## Getting Started
+Flutter Version
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Flutter 3.38.3 • channel stable
+Dart 3.10.1
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Packages Used
+
+
+flutter_bloc ^8.1.3 — state management (Cubit)
+google_fonts ^6.1.0 — Poppins/Inter typography
+cached_network_image ^3.3.1 — efficient loading of dummy network images
+cupertino_icons ^1.0.8 — iOS-style icons
+
+
+Project Structure
+
+lib/
+├── main.dart
+├── app/
+│   ├── app.dart               
+│   ├── theme/                
+│   └── routes/              
+├── core/
+│   ├── widgets/              
+│   └── utils/                
+├── features/
+│   ├── home/                  
+│   ├── service_listing/       
+│   └── service_details/       
+└── models/                 
+
+Features
+
+
+Home Screen with a hero section, horizontally scrollable service categories,
+customer testimonials, and a modern bottom navigation bar
+Service Listing screen with search bar and category filters
+Service Details screen with ratings, reviews, full description, included
+services, duration, and availability
+Hero animations on service images between the Listing and Details screens
+Smooth custom page transitions across all navigation
+Light and dark theme support
+Fully responsive layout across different mobile screen sizes
+Dummy data only — no backend or database integration
+
+
+Installation & Run Instructions
+
+
+Clone the repository:
+
+
+bash   git clone https://github.com/2201070/home-service-app.git
+   cd home-service-app
+
+
+Install dependencies:
+
+
+bash   flutter pub get
+
+
+Run the app:
+
+
+bash   flutter run
