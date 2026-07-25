@@ -24,18 +24,18 @@ Flutter Internship (Task 1 + Task 2 + Task 3).
 lib/
 ├── main.dart
 ├── app/
-│ ├── app.dart 
-│ ├── theme/ 
-│ └── routes/ 
+│   ├── app.dart                # MaterialApp, theme, routing setup
+│   ├── theme/                  # colors, typography, spacing, light/dark ThemeData, ThemeCubit
+│   └── routes/                 # route names + custom page transitions
 ├── core/
-│ ├── widgets/ 
-│ └── utils/ 
+│   ├── widgets/                # shared reusable widgets (buttons, cards, rating stars)
+│   └── utils/                  # extensions, responsive helpers
 ├── features/
-│ ├── home/ 
-│ ├── service_listing/ 
-│ ├── service_details/
-│ └── booking/ 
-└── models/ 
+│   ├── home/                   # Home Screen (hero, services, testimonials, bottom nav)
+│   ├── service_listing/        # Service Listing screen per category
+│   ├── service_details/        # Service Details screen
+│   └── booking/                # Booking screen (date/time bottom sheets, address, summary)
+└── models/                     # Category, Service, Review, Booking models
 
 ## Features
 - Home Screen with a hero section, horizontally scrollable service categories,
