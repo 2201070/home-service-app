@@ -13,6 +13,7 @@ cupertino_icons ^1.0.8 — iOS-style icons
 animated_text_kit — rotating typewriter-style hint text in the Service Listing search bar
 device_preview — dev-only tool for testing responsiveness across device sizes (never included in release builds)
 Project Structure
+
 lib/
 ├── main.dart
 ├── app/
